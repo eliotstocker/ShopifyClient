@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>Ms Jetoapple</title>
+		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"/>
+		<link href="assets/styles/main.css" rel="stylesheet"/>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width"/>
+		<script src="http://sdks.shopifycdn.com/js-buy-sdk/v0/latest/shopify-buy.umd.polyfilled.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.6/rivets.bundled.min.js"></script>
+		<script src="assets/scripts/shop.js"></script>
+	</head>
+	<body>
+		<div id="logo">
+			Ms<br>
+			Jetoapple//
+		</div>
+		<div id="cart" rv-show="cartUI.lineItemCount">
+			<div class="icon">
+				<img src="/assets/images/ic_shopping_basket_black_36px.svg"/>
+				<span class="count">{cartUI.lineItemCount}</span>
+			</div>
+			<div class="details">
+				<div class="info">
+					{cartUI.lineItemCount} items
+					<a onclick="shop.clearCart();">
+						clear
+					</a>
+				</div>
+				<ul class="items">
+					<li class="item" rv-each-item="cartUI.lineItems">
+						<img class="image" rv-src="item.image.src"><span class="title">{item.quantity} x {item.title}: {item.variant_title}</span>
+					</li>
+				</ul>
+				<div class="total">
+					&pound;{cartUI.subtotal}
+					<a rv-href="cartUI.checkoutUrl">
+						Checkout
+					</a>
+				</div>
+			</div>
+		</div>
+		<ul id="menu">
+			<div class="icon">
+				<img src="assets/images/ic_menu_black_36px.svg"/>
+			</div>
+			<div class="items">
+				<li class="item" rv-each-item="collections">
+					<a rv-href="item.attrs.collection_id | link 'category'">{item.attrs.title}</a>
+				</li>
+			</div>
+		</ul>
+		<div id="collection" rv-show="collection.attrs.title">
+			<h2 class="title">{collection.attrs.title}</h2>
+			<div class="data" rv-if="collection.attrs.body_html" rv-html="collection.attrs.body_html">
+			</div>
+			<div class="items">
+				<a class="item" rv-each-item="collection.items" rv-href="item.id | link 'product'">
+					<img rv-src="item.images.0.src"/>
+				</a>
+			</div>
+		</div>
+		<div id="product" rv-show="title">
+			<img class="image" rv-src="product.images.0.src"/>
+			<div class="main">
+				<div class="info">
+					<h2>{product.title}</h2>
+					<p rv-html="product.description"></p>
+				</div>
+				<div class="buy">
+					<span class="label">Buy</span>
+					<ul class="variants">
+						<li class="variant" rv-each-variant="product.variants" rv-on-click="product.buy" rv-id="variant.id">
+							{variant.title} <span class="price">({variant.formattedPrice})</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="buyPopout" class="modal" rv-show="cartUI.lineItemCount && !cartUI.hidePopup">
+			<p>An item has been added to the cart, would you like to checkout now?</p>
+			<div class="buttons">
+				<a rv-href="cartUI.checkoutUrl">Checkout</a>
+				<a href="#" class="close">Keep Browsing</a>
+			</div>
+		</div>
+		
+		<div id="loader">
+		    <svg id="loader-pencil" xmlns="http://www.w3.org/2000/svg" width="667" height="182" viewBox="0 0 677.34762 182.15429">
+		      <g>
+		        <path id="body-pencil" d="M128.273 0l-3.9 2.77L0 91.078l128.273 91.076 549.075-.006V.008L128.273 0zm20.852 30l498.223.006V152.15l-498.223.007V30zm-25 9.74v102.678l-49.033-34.813-.578-32.64 49.61-35.225z">
+		        </path>
+		        <path id="line" d="M134.482 157.147v25l518.57.008.002-25-518.572-.008z">
+		        </path>
+		      </g>
+		    </svg>
+		</div>
+		
+		<script>
+			var shop = new shop({
+				apiKey: '06fcef78b0593bdb201323de56809000',
+				domain: 'ms-jetoapple.myshopify.com',
+				productEl: '#product',
+				collectionEl: '#collection',
+				menuEl: '#menu',
+				cartEl: '#cart',
+				buyPopout: '#buypopout',
+				loaderEl: '#loader'
+			});
+		</script>
+	</body>
+</html>
