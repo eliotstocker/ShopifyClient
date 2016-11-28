@@ -10,8 +10,8 @@
 	</head>
 	<body>
 		<div id="logo">
-			Ms<br>
-			Jetoapple//
+			<a href="#!">Ms<br>
+			Jetoapple//</a>
 		</div>
 		<div id="cart" rv-show="cartUI.lineItemCount">
 			<div class="icon">
@@ -76,11 +76,11 @@
 			</div>
 		</div>
 		
-		<div id="buyPopout" class="modal" rv-show="cartUI.lineItemCount && !cartUI.hidePopup">
-			<p>An item has been added to the cart, would you like to checkout now?</p>
+		<div id="buyPopout" class="modal" rv-show="cartUI.showPopup">
+			<p>you have {cartUI.lineItemCount} item(s) in your cart, would you like to checkout now?</p>
 			<div class="buttons">
 				<a rv-href="cartUI.checkoutUrl">Checkout</a>
-				<a href="#" class="close">Keep Browsing</a>
+				<a href="#" rv-on-click="cartUI.hidePopup" class="close">Keep Browsing</a>
 			</div>
 		</div>
 		

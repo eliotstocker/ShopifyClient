@@ -14,10 +14,16 @@ var shop = function(options) {
 	}
 	
 	//setup objects
+	var _this = this;
 	this._data = {
 		"cartUI": {
 			lineItemCount: 0,
-			subtotal: 0
+			subtotal: 0,
+			showPopup: false,
+			hidePopup: function(e) {
+				e.preventDefault && e.preventDefault();
+				_this._data["cartUI"]["showPopup"] = false;
+			}.bind(this)
 		}
 	};
 	
@@ -94,12 +100,13 @@ shop.prototype._getProduct = function(id) {
 					variant = v;
 				}
 			}
-			console.log(variant);
 			this._data["cart"].createLineItemsFromVariants({variant: variant, quantity: 1}).then(function(cart) {
 				this._data["cartUI"]["lineItemCount"] = cart.lineItemCount;
 				this._data["cartUI"]["subtotal"] = cart.subtotal;
 				this._data["cartUI"]["lineItems"] = cart.lineItems;
 				this._data["cartUI"]["checkoutUrl"] = cart.checkoutUrl;
+				this._data["cartUI"]["showPopup"] = true;
+				console.log(this._data["cartUI"]);
 			}.bind(this));
 		}.bind(this);
 		
