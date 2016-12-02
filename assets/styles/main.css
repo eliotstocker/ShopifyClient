@@ -147,8 +147,8 @@ body, hml {
 #collection .items {
 	display: -webkit-flex;
     display: flex;
-    -webkit-align-items: center;
-    align-items: center;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
     -webkit-justify-content: center;
     justify-content: center;
     -webkit-flex-direction: row;
@@ -336,7 +336,7 @@ svg#loader-pencil {
 @media (max-width: 1000px) {
 	#logo {
 		position: absolute;
-	    left: 10%;
+	    left: 10px;
 	    top: 50px;
 	    border-left: 1.8vw solid rgba(0,0,0,0.6);
 	    padding-left: 1.8vw;
@@ -416,5 +416,13 @@ svg#loader-pencil {
 	
 	#collection .data {
 		padding: 0 10px;
+	}
+}
+
+@media (min-width: 650px) and (max-width: 1000px) {
+	#logo {
+	    border-left: 12px solid rgba(0,0,0,0.6);
+	    padding-left: 12px;
+	    font-size: 60px;
 	}
 }

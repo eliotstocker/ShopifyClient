@@ -136,7 +136,7 @@ shop.prototype._getCategory = function(id) {
 	document.querySelector(this.options.loaderEl).style.display = "";
 	this._shopifyClient.fetchCollection(id).then(function(coll) {
 		this._data["collection"] = coll;
-		this._shopifyClient.fetchQueryProducts({ collection_id: id }).then(function(items) {
+		this._shopifyClient.fetchQueryProducts({ collection_id: id, sort_by: 'collection-default' }).then(function(items) {
 			this._data["collection"]["items"] = items;
 			document.querySelector(this.options.menuEl).style.display = "";
 			document.querySelector(this.options.collectionEl).style.display = "";
