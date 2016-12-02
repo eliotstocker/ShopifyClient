@@ -121,7 +121,9 @@ shop.prototype._getProduct = function(id) {
 shop.prototype._getCategories = function() {
 	this._shopifyClient.fetchAllCollections()
 	.then(function(coll) {
-		this._data["collections"] = coll;
+		if(typeof this.options.collectionSort == "function") {
+			this._data["collections"] = coll.sort(this.options.collectionSort);
+		}
 		if(this.home) {
 			this._getHomeCollection();
 		}
@@ -161,7 +163,7 @@ shop.prototype._navigate = function() {
 shop.prototype._getHomeCollection = function() {
 	if(this._data["collections"]) {
 		for(var i = 0; i < this._data["collections"].length; i++) {
-			if(this._data["collections"][i].attrs.handle == "frontpage") {
+			if(this._data["collections"][i].attrs.handle == (this.options.frontpageHandle ? this.options.frontpageHandle : "frontpage")) {
 				this._getCategory(this._data["collections"][i].attrs.collection_id);
 			}
 		}
